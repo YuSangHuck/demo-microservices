@@ -47,6 +47,10 @@
 <!--            Unresolved dependency: 'org.springframework.boot:spring-boot-starter-test:jar:unknown'-->
             <version>${spring.boot.dependencies.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
