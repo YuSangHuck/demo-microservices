@@ -3,10 +3,13 @@ package com.demo.customer.service;
 import com.demo.customer.domain.*;
 import com.demo.customer.domain.Customer;
 import com.demo.customer.repository.CustomerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public record CustomerService(CustomerRepository customerRepository) {
+@RequiredArgsConstructor
+public class CustomerService {
+    private final CustomerRepository customerRepository;
     public void registerCustomer(CustomRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
