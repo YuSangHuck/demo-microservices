@@ -8,9 +8,53 @@
     <artifactId>demoMicroServices</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>demoMicroServices</name>
+
+<!--    parent module-->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <spring.boot.maven.plugin.version>2.6.7</spring.boot.maven.plugin.version>
+        <spring.boot.dependencies.version>2.6.7</spring.boot.dependencies.version>
     </properties>
+
+
+<!--    submodule-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.dependencies.version}</version>
+                <scope>import</scope>
+<!--                무언가의 특정버전에서는 type 미지정시 error-->
+<!--                내 프로젝트에서는 type 미지정시 warning-->
+<!--                maven 빌드에서 생긴 이슈이니 maven 버전이겠지?-->
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+<!--    every single submodule-->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+<!--            Unresolved dependency: 'org.springframework.boot:spring-boot-starter-test:jar:unknown'-->
+            <version>2.6.7</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.maven.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>
