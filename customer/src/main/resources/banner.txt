@@ -1,0 +1,10 @@
+gernerated by https://devops.datenkollektiv.de/banner.txt/index.html
+
+ ,-----.                    ,--.
+'  .--./ ,--.,--.  ,---.  ,-'  '-.  ,---.  ,--,--,--.  ,---.  ,--.--.
+|  |     |  ||  | (  .-'  '-.  .-' | .-. | |        | | .-. : |  .--'
+'  '--'\ '  ''  ' .-'  `)   |  |   ' '-' ' |  |  |  | \   --. |  |
+ `-----'  `----'  `----'    `--'    `---'  `--`--`--'  `----' `--'
+
+${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}
