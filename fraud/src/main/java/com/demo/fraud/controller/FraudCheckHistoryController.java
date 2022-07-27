@@ -1,6 +1,6 @@
 package com.demo.fraud.controller;
 
-import com.demo.fraud.domain.FraudCheckResponse;
+import com.demo.clients.fraud.FraudCheckResponse;
 import com.demo.fraud.service.FraudCheckHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
