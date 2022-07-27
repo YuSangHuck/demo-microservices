@@ -1,8 +1,8 @@
 package com.demo.customer.service;
 
+import com.demo.amqp.RabbitMQMessageProducer;
 import com.demo.clients.fraud.FraudCheckResponse;
 import com.demo.clients.fraud.FraudClient;
-import com.demo.clients.notification.NotificationClient;
 import com.demo.clients.notification.NotificationRequest;
 import com.demo.customer.domain.CustomRegistrationRequest;
 import com.demo.customer.domain.Customer;
@@ -17,7 +17,7 @@ public class CustomerService {
     //    RestTemplate type의 bean이 없다는 에러 뜸 -> RestTemplate type의 bean을 만들어서 spring에서 관리해줘야함
 //    모듈 루트에 Config 파일 만들자
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     public void registerCustomer(CustomRegistrationRequest request) {
         Customer customer = Customer.builder()
@@ -33,12 +33,20 @@ public class CustomerService {
             throw new IllegalStateException("fraudster");
         }
 
-        notificationClient.sendNotification(
-                new NotificationRequest(
-                        customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, welcome to Demo..."
-                                , customer.getFirstName())
-                ));
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to Demo..."
+                        , customer.getFirstName())
+        );
+        rabbitMQMessageProducer.publish(
+                notificationRequest,
+                // FIXME exchange 확인.
+                // notification.${rabbitmq.exchanges.internal}과 동일하다
+                "internal.exchange",
+                // FIXME routingKey 확인
+                // notification.${rabbitmq.routing-keys.internal-notification}과 동일하다
+                "internal.notification.routing-key"
+        );
     }
 }

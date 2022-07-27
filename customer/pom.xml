@@ -41,6 +41,17 @@
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
     </dependency>
+<!--    FIXME customer.application.yml 에서 rabbitmq에 대한 설정을 해주므로 dependency가 필요할거임-->
+<!--    NOTE 필요한건 맞다. 근데 아래의 com.demo:amqp 의존하면 자동으로 starter-amqp도 의존성 추가됨-->
+<!--    <dependency>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-amqp</artifactId>-->
+<!--    </dependency>-->
+    <dependency>
+        <groupId>com.demo</groupId>
+        <artifactId>amqp</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-sleuth</artifactId>
