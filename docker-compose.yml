@@ -27,6 +27,20 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+  postgres-notification:
+    container_name: postgres-notification
+    image: postgres
+    environment:
+      POSTGRES_USER: amigoscode
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-notification:/data/postgres
+    ports:
+      - "5434:5432" # host:container
+    networks:
+      - postgres
+    restart: unless-stopped
 
   pgadmin:
     container_name: pgadmin
@@ -50,4 +64,5 @@ networks:
 volumes:
   postgres-customer:
   postgres-fraud:
+  postgres-notification:
   pgadmin:
