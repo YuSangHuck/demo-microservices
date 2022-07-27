@@ -25,7 +25,7 @@ public class CustomerService {
 //        todo: check if email is valid
 //        todo: check if email is not taken
         customerRepository.saveAndFlush(customer);
-        String url = "http://localhost:8081/api/v1/fraud-check/{customerId}"; // 뒤에서 인자로 넣어줄거임
+        String url = "http://FRAUD/api/v1/fraud-check/{customerId}"; // 뒤에서 인자로 넣어줄거임
         FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(url, FraudCheckResponse.class, customer.getId());
         if (fraudCheckResponse.isFraudster()) {
             throw new IllegalStateException("fraudster");
