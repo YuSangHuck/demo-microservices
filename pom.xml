@@ -20,7 +20,7 @@
 
     <name>demoMicroServices</name>
 
-<!--    parent module-->
+    <!--    parent module-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -28,10 +28,11 @@
         <spring.boot.maven.plugin.version>2.6.7</spring.boot.maven.plugin.version>
         <spring.boot.dependencies.version>2.6.7</spring.boot.dependencies.version>
         <spring.cloud.dependencies.version>2021.0.3</spring.cloud.dependencies.version>
+        <image>turtlog/${project.artifactId}:${project.version}</image>
     </properties>
 
 
-<!--    submodule-->
+    <!--    submodule-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -39,9 +40,9 @@
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.dependencies.version}</version>
                 <scope>import</scope>
-<!--                무언가의 특정버전에서는 type 미지정시 error-->
-<!--                내 프로젝트에서는 type 미지정시 warning-->
-<!--                maven 빌드에서 생긴 이슈이니 maven 버전이겠지?-->
+                <!--                무언가의 특정버전에서는 type 미지정시 error-->
+                <!--                내 프로젝트에서는 type 미지정시 warning-->
+                <!--                maven 빌드에서 생긴 이슈이니 maven 버전이겠지?-->
                 <type>pom</type>
             </dependency>
             <dependency>
@@ -54,13 +55,13 @@
         </dependencies>
     </dependencyManagement>
 
-<!--    every single submodule-->
+    <!--    every single submodule-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-<!--            Unresolved dependency: 'org.springframework.boot:spring-boot-starter-test:jar:unknown'-->
-<!--            <version>${spring.boot.dependencies.version}</version>-->
+            <!--            Unresolved dependency: 'org.springframework.boot:spring-boot-starter-test:jar:unknown'-->
+            <!--            <version>${spring.boot.dependencies.version}</version>-->
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -87,6 +88,41 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>3.1.4</version>
+                    <configuration>
+                        <from>
+                            <image>
+                                eclipse-temurin:17@sha256:2b47a8ea946ce1e5365a1562414ed576e378b7b670cadff3fb98ebecf2890cdc
+                            </image>
+                            <platforms>
+                                <platform>
+                                    <architecture>arm64</architecture>
+                                    <os>linux</os>
+                                </platform>
+                                <platform>
+                                    <architecture>amd64</architecture>
+                                    <os>linux</os>
+                                </platform>
+                            </platforms>
+                        </from>
+                        <to>
+                            <tags>
+                                <tag>latest</tag>
+                            </tags>
+                        </to>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -101,5 +137,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
