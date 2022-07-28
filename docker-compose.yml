@@ -1,43 +1,15 @@
 services:
-  postgres-customer:
-    container_name: postgres-customer
+  postgres:
+    container_name: postgres
     image: postgres
     environment:
       POSTGRES_USER: amigoscode
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
     volumes:
-      - postgres-customer:/data/postgres
+      - postgres:/data/postgres
     ports:
       - "5432:5432"
-    networks:
-      - postgres
-    restart: unless-stopped
-  postgres-fraud:
-    container_name: postgres-fraud
-    image: postgres
-    environment:
-      POSTGRES_USER: amigoscode
-      POSTGRES_PASSWORD: password
-      PGDATA: /data/postgres
-    volumes:
-      - postgres-fraud:/data/postgres
-    ports:
-      - "5433:5432" # host:container
-    networks:
-      - postgres
-    restart: unless-stopped
-  postgres-notification:
-    container_name: postgres-notification
-    image: postgres
-    environment:
-      POSTGRES_USER: amigoscode
-      POSTGRES_PASSWORD: password
-      PGDATA: /data/postgres
-    volumes:
-      - postgres-notification:/data/postgres
-    ports:
-      - "5434:5432" # host:container
     networks:
       - postgres
     restart: unless-stopped
@@ -73,7 +45,5 @@ networks:
     driver: bridge
 
 volumes:
-  postgres-customer:
-  postgres-fraud:
-  postgres-notification:
+  postgres:
   pgadmin:
