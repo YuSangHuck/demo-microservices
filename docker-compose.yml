@@ -40,6 +40,8 @@ services:
     ports:
       - "5672:5672" # rabbitmq instance port
       - "15672:15672" # dashboard
+    networks:
+      - spring
   eureka-server:
     image: turtlog/eureka-server:latest
     container_name: eureka-server
